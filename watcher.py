@@ -19,11 +19,11 @@ if __name__ == "__main__":
     
     # REQUIRED INFO FOR LOGIN AND FILE PATH
     # Provide the necessary information here
-    username = "mediawiki_admin"
-    password = "mediawiki@123"
-    path = "./PDFs"     # Replace with the directory you want to monitor
+    username = "mediawiki_admin" # Replace with your username
+    password = "mediawiki@123"   # replace with your password
+    path = "./PDFs"              # Replace with the directory you want to monitor
 
-    sleep_time =  3 # in seconds, for waiting
+    sleep_time =  3              # in seconds, for waiting
     errorr = False
 
     event_handler = FileChangeHandler()
