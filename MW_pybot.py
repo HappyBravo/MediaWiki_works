@@ -33,7 +33,7 @@ def upload_pdf_files(file_path, wiki_url, username, password, addSummary = False
         ELSE, IT SCRAPS THE TEXT FROM PDF   AND ADDS THE TEXT IN THE COMMENT SECTION
     '''
 
-    site = pywikibot.Site(user=username, code="en", fam="mediawiki") # DEPENDING ON HOW YOU HAVE CONFIGURED YOUR MEDIAWIKI, 'code' AND 'fam' CAN TAKE DIFFERENT VALUES
+    site = pywikibot.Site(user=username, code="en", fam="mediawiki2") # DEPENDING ON HOW YOU HAVE CONFIGURED YOUR MEDIAWIKI, 'code' AND 'fam' CAN TAKE DIFFERENT VALUES
                                                                      # VISIT : https://www.mediawiki.org/wiki/Manual:Pywikibot/Use_on_third-party_wikis
                                                                      # GENERALLY THE CUSTOM WIKI FOLDER IS AT ~/[PYWIKIBOT INSTALL PATH]pywikibot/pywikibot/families ON THE DEVICE
 
