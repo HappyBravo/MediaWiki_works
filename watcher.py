@@ -15,27 +15,34 @@ class FileChangeHandler(FileSystemEventHandler):
             self.new_files.append(event.src_path)
 
 if __name__ == "__main__":
-    path = "./PDFs"  # Replace with the directory you want to monitor
+    print("Watcher Started")
+    
+    # REQUIRED INFO FOR LOGIN AND FILE PATH
+    # Provide the necessary information here
+    username = "mediawiki_admin"
+    password = "mediawiki@123"
+    path = "./PDFs"     # Replace with the directory you want to monitor
+
+    sleep_time =  3 # in seconds, for waiting
+    errorr = False
+
     event_handler = FileChangeHandler()
     observer = Observer()
     observer.schedule(event_handler, path, recursive=False)
     observer.start()
-
-    username = "mediawiki_admin"
-    sleep_time = 180 # in seconds
-
+   
     try:
-        while True:
-            time.sleep(sleep_time)  # Wait for 30 minutes
+        while True and not errorr:
+            errorr = False
+            time.sleep(sleep_time)  # Wait for some time
             if event_handler.new_files:
                 print("New files detected. Performing task...")
-                # Perform your task here (e.g., "upload")
 
                 # Create the "PDFs" directory
                 pdfs_dir = os.path.join(path, "temp_PDFs")
                 os.makedirs(pdfs_dir, exist_ok=True)
 
-                # Copy new files to "PDFs" directory
+                # Copy new files to "temp_PDFs" directory for temporary storage and processing
                 for file_path in event_handler.new_files:
                     if file_path.endswith('.part'):
                         file_path = file_path[:-5]
@@ -46,21 +53,30 @@ if __name__ == "__main__":
                 
                 # Performing operations on the files in "PDFs"
                 try:
-                    uploader.main_uploader(file_path=pdfs_dir, username=username)
+                    uploader.main_uploader(file_path=pdfs_dir, username=username, password = password)
                     
                     # Clear the list of new files
                     event_handler.new_files = []
                     print("Task completed successfully.")
-    
+
                 except Exception as e:
+                    # errorr = True
                     print(e)
+                    
                 
                 # Delete the "PDFs" directory and its contents
                 shutil.rmtree(pdfs_dir)
+                if errorr:
+                    print("error detected ... ")
+                    raise Exception
+                    # break
 
             else:
                 print("No new files detected. Skipping task.")
     except KeyboardInterrupt:
+    # except Exception as e:
+        print("Interrupted ... Exiting")
+        # print(e)
         observer.stop()
 
     observer.join()

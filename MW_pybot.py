@@ -23,7 +23,7 @@ def check_MIME_pdf(file_name):
     return (_file_name, isChanged)
 
 
-def upload_pdf_files(file_path, wiki_url, username, addSummary = False, summary=' '):
+def upload_pdf_files(file_path, wiki_url, username, password, addSummary = False, summary=' '):
     '''
     UPLOADS ALL PDF FILES FROM A DIRECTORY
     TO MEDIAWIKI WITH AN OCR TEXT LAYER
@@ -37,7 +37,12 @@ def upload_pdf_files(file_path, wiki_url, username, addSummary = False, summary=
                                                                      # VISIT : https://www.mediawiki.org/wiki/Manual:Pywikibot/Use_on_third-party_wikis
                                                                      # GENERALLY THE CUSTOM WIKI FOLDER IS AT ~/[PYWIKIBOT INSTALL PATH]pywikibot/pywikibot/families ON THE DEVICE
 
-    site.login()
+    if password == None:
+        site.login() # IN THIS METHOD PASSWORD IS ASKED BY PYWIKIBOT DURING RUNTIME. 
+    else:
+        logg = pywikibot.login.LoginManager(password = "password", site = site, user = username)
+        # print(logg)
+        # input()
 
     for file_name in os.listdir(file_path):
         if file_name.endswith('.pdf'):
@@ -75,6 +80,7 @@ def upload_pdf_files(file_path, wiki_url, username, addSummary = False, summary=
             except Exception as e:
                 print(e)
     site.logout()
+    
 
 # REQUIRED INFO FOR LOGIN AND FILE PATH
 # Provide the necessary information here
@@ -82,24 +88,24 @@ def upload_pdf_files(file_path, wiki_url, username, addSummary = False, summary=
 file_path = './PDFs'  # Path to the folder containing PDF files
 wiki_url = 'http://localhost'  # URL of your local MediaWiki server
 username = 'YOUR USERNAME'  # Your MediaWiki username
-# PASSWORD IS ASKED LATER BY PYWIKIBOT...
+password = None         # YOUR PASSWORD 
 
 def main_uploader(
         file_path = file_path, 
         wiki_url = wiki_url, 
         username = username, 
+        password = password,
         addSummary = False, 
         summary = ' ' 
         ):
     
     # summary_buffer = "TESTINF SUMMARY. SOme random text for summary."
     # add_summ = True
-
     # summary_buffer = ''
     # add_summ = False
     
     # UPLOAD
-    upload_pdf_files(file_path, wiki_url, username, addSummary, summary)
+    upload_pdf_files(file_path = file_path, wiki_url = wiki_url, username = username,password = password, addSummary = addSummary, summary = summary)
 
 
 
