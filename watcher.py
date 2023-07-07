@@ -38,20 +38,21 @@ if __name__ == "__main__":
             if event_handler.new_files:
                 print("New files detected. Performing task...")
 
-                # Create the "PDFs" directory
+                # Create the "temp_PDFs" directory
                 pdfs_dir = os.path.join(path, "temp_PDFs")
                 os.makedirs(pdfs_dir, exist_ok=True)
 
                 # Copy new files to "temp_PDFs" directory for temporary storage and processing
                 for file_path in event_handler.new_files:
                     if file_path.endswith('.part'):
-                        file_path = file_path[:-5]
+                        file_path = file_path[:-5]   # REMOVING THE ".part" extension # Perform your task here (e.g., "upload")
                     shutil.copy2(file_path, pdfs_dir)
-                
-                new_dir = os.path.join(pdfs_dir, "new")
+
+                # Create "new" folder. It will be used by MW_pybot for storing the processed PDFs
+                new_dir = os.path.join(pdfs_dir, "new") 
                 os.makedirs(new_dir, exist_ok=True)
                 
-                # Performing operations on the files in "PDFs"
+                # Performing operations on the files in "temp_PDFs"
                 try:
                     uploader.main_uploader(file_path=pdfs_dir, username=username, password = password)
                     
