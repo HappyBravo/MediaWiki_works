@@ -19,15 +19,17 @@ def extract_text(pdf_obj):
     '''
     pdfObj = open(pdf_obj, "rb")
     pdfReader = PyPDF2.PdfReader(pdfObj)
-    textt = {} # PAGENO : TEXT IN THAT PAGE
+    textt = {} # THIS WILL BE OF THE FORMAL { PAGENO : TEXT IN THAT PAGE }
+               # LIKE A PYTHON DICTIONARY 
+
     for i in range(len(pdfReader.pages)):
         textt[i] = pdfReader.pages[i].extract_text()
     return textt
 
 
-    ###############
-    ### TESTING ###
-    ###############
+    ##################################
+    ############ TESTING #############
+    ##################################
 
 if __name__ == "__main__":
     normal_pdf = "./test_pdf.pdf" # NORMAL PDF
