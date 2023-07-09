@@ -1,12 +1,17 @@
 # MediaWiki_works
 An attempt to make uploaded PDFs searchable on MediaWiki.
----
+
+----
 
 ## REQUIREMENTS
-- [OCRmyPDF](https://pypi.org/project/ocrmypdf/)
 - [CirrusSearch](https://www.mediawiki.org/wiki/Extension:CirrusSearch)
+  - [Setup Instructions](https://github.com/wikimedia/mediawiki-extensions-CirrusSearch)
 - [PDFHandler](https://www.mediawiki.org/wiki/Extension:PdfHandler)
+- [OCRmyPDF](https://pypi.org/project/ocrmypdf/)
+- [pywikibot](https://github.com/wikimedia/pywikibot)
 - [watchdog](https://pypi.org/project/watchdog/)
+
+---
 
 Run [```watcher.py```](watcher.py) to automatically upload files on the server.
 
