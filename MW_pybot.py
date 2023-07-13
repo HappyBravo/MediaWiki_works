@@ -40,7 +40,7 @@ def upload_pdf_files(file_path, wiki_url, username, password, addSummary = False
     if password == None:
         site.login() # IN THIS METHOD PASSWORD IS ASKED BY PYWIKIBOT DURING RUNTIME. 
     else:
-        logg = pywikibot.login.LoginManager(password = "password", site = site, user = username)
+        logg = pywikibot.login.LoginManager(password = password, site = site, user = username)
         # print(logg)
         # input()
 
