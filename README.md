@@ -1,5 +1,5 @@
 # MediaWiki_works
-An attempt to make uploaded PDFs searchable on MediaWiki.
+An attempt to upgrade default search and make uploaded PDFs searchable on MediaWiki.
 
 ----
 
