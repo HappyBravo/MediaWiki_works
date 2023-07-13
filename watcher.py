@@ -22,7 +22,7 @@ if __name__ == "__main__":
     username = "mediawiki_admin" # Replace with your username
     password = "mediawiki@123"   # replace with your password
     path = "./PDFs"              # Replace with the directory you want to monitor
-
+    # path = "[PUT ABSOLUTE PATH IF IT THROWS SOME ERROR RELATED TO PATH]/PDFs/"
     sleep_time =  3              # in seconds, for waiting
     errorr = False
 
@@ -53,20 +53,29 @@ if __name__ == "__main__":
                 os.makedirs(new_dir, exist_ok=True)
                 
                 # Performing operations on the files in "temp_PDFs"
+                isSuccess = 0
                 try:
-                    uploader.main_uploader(file_path=pdfs_dir, username=username, password = password)
+                    isSuccess = uploader.main_uploader(file_path=pdfs_dir, username=username, password = password)
+                    # isSuccess = uploader.main_uploader(file_path=pdfs_dir, username=username)
+                    
+                    if not isSuccess:
+                        raise Exception
                     
                     # Clear the list of new files
                     event_handler.new_files = []
                     print("Task completed successfully.")
 
                 except Exception as e:
-                    # errorr = True
+                    errorr = True
                     print(e)
                     
                 
                 # Delete the "PDFs" directory and its contents
-                shutil.rmtree(pdfs_dir)
+                try:
+                    shutil.rmtree(pdfs_dir)
+                except Exception as e:
+                    print("Error: ", e)
+                
                 if errorr:
                     print("error detected ... ")
                     raise Exception
@@ -74,11 +83,11 @@ if __name__ == "__main__":
 
             else:
                 print("No new files detected. Skipping task.")
-    except KeyboardInterrupt:
+    except KeyboardInterrupt :
     # except Exception as e:
         print("Interrupted ... Exiting")
         # print(e)
         observer.stop()
 
     observer.join()
-
+    print("Watcher Stopped")
